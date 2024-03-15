@@ -9,17 +9,7 @@ const { build } = require('esbuild');
     ).version.trim();
 
     const artifacts = [
-        { src: 'src/main.js', dest: 'sub-store.min.js' },
-        {
-            src: 'src/products/resource-parser.loon.js',
-            dest: 'dist/sub-store-parser.loon.min.js',
-        },
-        {
-            src: 'src/products/cron-sync-artifacts.js',
-            dest: 'dist/cron-sync-artifacts.min.js',
-        },
-        { src: 'src/products/sub-store-0.js', dest: 'dist/sub-store-0.min.js' },
-        { src: 'src/products/sub-store-1.js', dest: 'dist/sub-store-1.min.js' },
+        { src: 'server.js', dest: 'makaparser.min.js' },
     ];
 
     for await (const artifact of artifacts) {
@@ -34,7 +24,7 @@ const { build } = require('esbuild');
         });
     }
 
-    let content = fs.readFileSync(path.join(__dirname, 'sub-store.min.js'), {
+    let content = fs.readFileSync(path.join(__dirname, 'makaparser.min.js'), {
         encoding: 'utf8',
     });
     content = content.replace(
@@ -42,7 +32,7 @@ const { build } = require('esbuild');
         '$2',
     );
     fs.writeFileSync(
-        path.join(__dirname, 'dist/sub-store.no-bundle.js'),
+        path.join(__dirname, 'dist/makaparser.no-bundle.js'),
         content,
         {
             encoding: 'utf8',
@@ -50,18 +40,18 @@ const { build } = require('esbuild');
     );
 
     await build({
-        entryPoints: ['dist/sub-store.no-bundle.js'],
+        entryPoints: ['dist/makaparser.no-bundle.js'],
         bundle: true,
         minify: true,
         sourcemap: false,
         platform: 'node',
         format: 'cjs',
-        outfile: 'dist/sub-store.bundle.js',
+        outfile: 'dist/makaparser.bundle.js',
     });
     fs.writeFileSync(
-        path.join(__dirname, 'dist/sub-store.bundle.js'),
+        path.join(__dirname, 'dist/makaparser.bundle.js'),
         `// SUB_STORE_BACKEND_VERSION: ${version}
-${fs.readFileSync(path.join(__dirname, 'dist/sub-store.bundle.js'), {
+${fs.readFileSync(path.join(__dirname, 'dist/makaparser.bundle.js'), {
     encoding: 'utf8',
 })}`,
         {

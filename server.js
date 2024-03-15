@@ -13,7 +13,7 @@
  * @note Banner font:ANSI Shadow, https://www.toolscat.com/img/text-ascii
  * 
  */
-import { version } from '../package.json';
+import { version } from './package.json';
 console.log(
     `
 ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
@@ -22,8 +22,5 @@ console.log(
 `,
 );
 
-import migrate from '@/utils/migration';
 import serve from '@/restful';
-
-migrate();
 serve();

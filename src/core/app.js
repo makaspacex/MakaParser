@@ -1,4 +1,4 @@
 import { OpenAPI } from '@/vendor/open-api';
 
-const $ = new OpenAPI('sub-store');
+const $ = new OpenAPI('makaparser');
 export default $;

@@ -8,7 +8,7 @@ const { build } = require('esbuild');
         fs.readFileSync(path.join(__dirname, 'package.json'), 'utf-8'),
     ).version.trim();
 
-    let content = fs.readFileSync(path.join(__dirname, 'sub-store.min.js'), {
+    let content = fs.readFileSync(path.join(__dirname, 'makaparser.min.js'), {
         encoding: 'utf8',
     });
     content = content.replace(
@@ -16,7 +16,7 @@ const { build } = require('esbuild');
         '$2',
     );
     fs.writeFileSync(
-        path.join(__dirname, 'dist/sub-store.no-bundle.js'),
+        path.join(__dirname, 'dist/makaparser.no-bundle.js'),
         content,
         {
             encoding: 'utf8',
@@ -24,18 +24,18 @@ const { build } = require('esbuild');
     );
 
     await build({
-        entryPoints: ['dist/sub-store.no-bundle.js'],
+        entryPoints: ['dist/makaparser.no-bundle.js'],
         bundle: true,
         minify: true,
         sourcemap: true,
         platform: 'node',
         format: 'cjs',
-        outfile: 'dist/sub-store.bundle.js',
+        outfile: 'dist/makaparser.bundle.js',
     });
     fs.writeFileSync(
-        path.join(__dirname, 'dist/sub-store.bundle.js'),
+        path.join(__dirname, 'dist/makaparser.bundle.js'),
         `// SUB_STORE_BACKEND_VERSION: ${version}
-${fs.readFileSync(path.join(__dirname, 'dist/sub-store.bundle.js'), {
+${fs.readFileSync(path.join(__dirname, 'dist/makaparser.bundle.js'), {
     encoding: 'utf8',
 })}`,
         {

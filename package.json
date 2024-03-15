@@ -1,15 +1,15 @@
 {
   "name": "makaparser",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Advanced Subscription Manager for QX, Loon, Surge, Stash and ShadowRocket.",
-  "main": "src/main.js",
+  "main": "src/index.js",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "test": "gulp peggy && npx cross-env BABEL_ENV=test mocha src/test/**/*.spec.js --require @babel/register --recursive",
-    "serve": "node sub-store.min.js",
-    "start": "nodemon -w src -w package.json --exec babel-node src/main.js",
+    "serve": "node makaparser.min.js",
+    "start": "nodemon -w src -w package.json --exec babel-node server.js",
     "dev:esbuild": "nodemon -w src -w package.json dev-esbuild.js",
-    "dev:run": "nodemon -w sub-store.min.js sub-store.min.js",
+    "dev:run": "nodemon -w makaparser.min.js makaparser.min.js",
     "build": "gulp",
     "bundle": "node bundle.js"
   },

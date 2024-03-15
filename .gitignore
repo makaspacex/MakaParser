@@ -1,3 +1,5 @@
+runtime/
+
 .DS_Store
 # json config
 sub-store.json
@@ -130,8 +132,8 @@ out
 *.sw?
 
 # Dist files
-backend/dist/*
-!backend/dist/.gitkeep
-backend/sub-store.min.js
+dist/*
+!dist/.gitkeep
+makaparser.min.js
 
 CHANGELOG.md
