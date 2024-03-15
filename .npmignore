@@ -18,3 +18,6 @@ root.json
 sub-store.json
 makaparser.json
 api.http
+makaparser.min.js
+src/restful/
+server.js

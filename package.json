@@ -1,8 +1,8 @@
 {
   "name": "makaparser",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Advanced Subscription Manager for QX, Loon, Surge, Stash and ShadowRocket.",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "test": "gulp peggy && npx cross-env BABEL_ENV=test mocha src/test/**/*.spec.js --require @babel/register --recursive",
