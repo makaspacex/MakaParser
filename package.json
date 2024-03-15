@@ -1,6 +1,6 @@
 {
   "name": "makaparser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Advanced Subscription Manager for QX, Loon, Surge, Stash and ShadowRocket.",
   "main": "src/index.js",
   "scripts": {
