@@ -1,5 +1,4 @@
 import YAML from '@/utils/yaml';
-import download from '@/utils/download';
 import {
     isIPv4,
     isIPv6,
@@ -7,14 +6,19 @@ import {
     isNotBlank,
     utf8ArrayToStr,
 } from '@/utils';
-import PROXY_PROCESSORS, { ApplyProcessor } from './processors';
 import PROXY_PREPROCESSORS from './preprocessors';
 import PROXY_PRODUCERS from './producers';
 import PROXY_PARSERS from './parsers';
 import $ from '@/core/app';
-import { FILES_KEY, MODULES_KEY } from '@/constants';
-import { findByName } from '@/utils/database';
-import { produceArtifact } from '@/restful/sync';
+
+export const ProxyUtils = {
+    parse,
+    produce,
+    isIPv4,
+    isIPv6,
+    isIP,
+    yaml: YAML,
+};
 
 function preprocess(raw) {
     for (const processor of PROXY_PREPROCESSORS) {
@@ -72,114 +76,6 @@ function parse(raw) {
     return proxies;
 }
 
-async function processFn(proxies, operators = [], targetPlatform, source) {
-    for (const item of operators) {
-        // process script
-        let script;
-        let $arguments = {};
-        if (item.type.indexOf('Script') !== -1) {
-            const { mode, content } = item.args;
-            if (mode === 'link') {
-                let noCache;
-                let url = content;
-                if (url.endsWith('#noCache')) {
-                    url = url.replace(/#noCache$/, '');
-                    noCache = true;
-                }
-                // extract link arguments
-                const rawArgs = url.split('#');
-                if (rawArgs.length > 1) {
-                    try {
-                        // 支持 `#${encodeURIComponent(JSON.stringify({arg1: "1"}))}`
-                        $arguments = JSON.parse(decodeURIComponent(rawArgs[1]));
-                    } catch (e) {
-                        for (const pair of rawArgs[1].split('&')) {
-                            const key = pair.split('=')[0];
-                            const value = pair.split('=')[1];
-                            // 部分兼容之前的逻辑 const value = pair.split('=')[1] || true;
-                            $arguments[key] =
-                                value == null || value === ''
-                                    ? true
-                                    : decodeURIComponent(value);
-                        }
-                    }
-                }
-                url = `${url.split('#')[0]}${noCache ? '#noCache' : ''}`;
-                const downloadUrlMatch = url.match(
-                    /^\/api\/(file|module)\/(.+)/,
-                );
-                if (downloadUrlMatch) {
-                    let type = '';
-                    try {
-                        type = downloadUrlMatch?.[1];
-                        let name = downloadUrlMatch?.[2];
-                        if (name == null) {
-                            throw new Error(`本地 ${type} URL 无效: ${url}`);
-                        }
-                        name = decodeURIComponent(name);
-                        const key = type === 'module' ? MODULES_KEY : FILES_KEY;
-                        const item = findByName($.read(key), name);
-                        if (!item) {
-                            throw new Error(`找不到 ${type}: ${name}`);
-                        }
-
-                        if (type === 'module') {
-                            script = item.content;
-                        } else {
-                            script = await produceArtifact({
-                                type: 'file',
-                                name,
-                            });
-                        }
-                    } catch (err) {
-                        $.error(
-                            `Error when loading ${type}: ${item.args.content}.\n Reason: ${err}`,
-                        );
-                        throw new Error(`无法加载 ${type}: ${url}`);
-                    }
-                } else {
-                    // if this is a remote script, download it
-                    try {
-                        script = await download(url);
-                        // $.info(`Script loaded: >>>\n ${script}`);
-                    } catch (err) {
-                        $.error(
-                            `Error when downloading remote script: ${item.args.content}.\n Reason: ${err}`,
-                        );
-                        throw new Error(`无法下载脚本: ${url}`);
-                    }
-                }
-            } else {
-                script = content;
-            }
-        }
-
-        if (!PROXY_PROCESSORS[item.type]) {
-            $.error(`Unknown operator: "${item.type}"`);
-            continue;
-        }
-
-        $.info(
-            `Applying "${item.type}" with arguments:\n >>> ${
-                JSON.stringify(item.args, null, 2) || 'None'
-            }`,
-        );
-        let processor;
-        if (item.type.indexOf('Script') !== -1) {
-            processor = PROXY_PROCESSORS[item.type](
-                script,
-                targetPlatform,
-                $arguments,
-                source,
-            );
-        } else {
-            processor = PROXY_PROCESSORS[item.type](item.args || {});
-        }
-        proxies = await ApplyProcessor(processor, proxies);
-    }
-    return proxies;
-}
-
 function produce(proxies, targetPlatform, type, opts = {}) {
     const producer = PROXY_PRODUCERS[targetPlatform];
     if (!producer) {
@@ -233,16 +129,6 @@ function produce(proxies, targetPlatform, type, opts = {}) {
         return producer.produce(proxies, type, opts);
     }
 }
-
-export const ProxyUtils = {
-    parse,
-    process: processFn,
-    produce,
-    isIPv4,
-    isIPv6,
-    isIP,
-    yaml: YAML,
-};
 
 function tryParse(parser, line) {
     if (!safeMatch(parser, line)) return [null, new Error('Parser mismatch')];

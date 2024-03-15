@@ -31,7 +31,7 @@ function QXFilter() {
 function SurgeRuleSet() {
     const type = 'SINGLE';
     const func = (rule) => {
-        const UNSUPPORTED = ['GEOSITE', 'GEOIP'];
+        const UNSUPPORTED = ['GEOSITE'];
         if (UNSUPPORTED.indexOf(rule.type) !== -1) return null;
         let output = `${rule.type},${rule.content}`;
         if (['IP-CIDR', 'IP-CIDR6'].includes(rule.type)) {
@@ -47,7 +47,7 @@ function LoonRules() {
     const type = 'SINGLE';
     const func = (rule) => {
         // skip unsupported rules
-        const UNSUPPORTED = ['SRC-IP', 'GEOSITE', 'GEOIP'];
+        const UNSUPPORTED = ['SRC-IP', 'GEOSITE'];
         if (UNSUPPORTED.indexOf(rule.type) !== -1) return null;
         if (['IP-CIDR', 'IP-CIDR6'].includes(rule.type) && rule.options) {
             // Loon only supports the no-resolve option

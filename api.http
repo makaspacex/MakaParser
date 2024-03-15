@@ -1,0 +1,23 @@
+
+@baseUrl = http://127.0.0.1:3002
+
+### 规则转换测试
+POST {{baseUrl}}/api/rule/parse
+content-type: application/json
+
+{
+    "data": "#eee\n #ad \npayload:\n  - DOMAIN-SUFFIX,apple.cn\n  # dee\n  - DOMAIN-SUFFIX,ipod.com.cn\n  - DOMAIN-SUFFIX,ipod.com.cn,DIRECT\n  - IP-CIDR6,2607:fb10::/32,no-resolve\n  - IP-CIDR6,2607:fb10::/32\n    - IP-CIDR,103.249.254.113/32\n  - GEOIP,CN,DIRECT\n  - GEOSITE,google-cn,DIRECT",
+    "client": "Loon"
+}   
+
+### 协议转换
+POST {{baseUrl}}/api/proxy/parse
+content-type: application/json
+
+{
+    "data": "ss://YWVzLTEyOC1nY206ZTE3ZTk2YjMtODhhOS00MmM2LTg3YzctMjBlODk4NTRhYzJm@v3-hk.kunlun-sd.com:6601#Lv3%20%E9%A6%99%E6%B8%AF%2001%20%5B2.0%5D\n",
+    "client": "Surge"
+}   
+
+
+
