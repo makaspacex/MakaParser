@@ -8,8 +8,8 @@ export default function serve() {
 
     const isNode = eval(`typeof process !== "undefined"`);
     if (isNode) {
-        port = eval('process.env.SUB_STORE_BACKEND_API_PORT') || 3000;
-        host = eval('process.env.SUB_STORE_BACKEND_API_HOST') || '::';
+        port = eval('process.env.MAKA_PARSER_API_PORT') || 3000;
+        host = eval('process.env.MAKA_PARSER_API_HOST') || '::';
     }
     const $app = express({ substore: $, port, host });
     // register routes

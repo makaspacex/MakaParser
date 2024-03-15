@@ -50,7 +50,7 @@ const { build } = require('esbuild');
     });
     fs.writeFileSync(
         path.join(__dirname, 'dist/makaparser.bundle.js'),
-        `// SUB_STORE_BACKEND_VERSION: ${version}
+        `// MAKA_PARSER_VERSION: ${version}
 ${fs.readFileSync(path.join(__dirname, 'dist/makaparser.bundle.js'), {
     encoding: 'utf8',
 })}`,
