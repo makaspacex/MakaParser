@@ -1,8 +1,5 @@
 /* eslint-disable no-undef */
-import { ENV } from './open-api';
-
 export default function express({ substore: $, port, host }) {
-    const { isNode } = ENV();
     const DEFAULT_HEADERS = {
         'Content-Type': 'text/plain;charset=UTF-8',
         'Access-Control-Allow-Origin': '*',
@@ -11,6 +8,7 @@ export default function express({ substore: $, port, host }) {
             'Origin, X-Requested-With, Content-Type, Accept',
     };
 
+    const isNode = eval(`typeof process !== "undefined"`);
     // node support
     if (isNode) {
         const express_ = eval(`require("express")`);
