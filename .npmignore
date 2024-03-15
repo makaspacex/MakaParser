@@ -16,3 +16,4 @@ jsconfig.json
 pnpm-lock.yaml
 root.json
 sub-store.json
+makaparser.json

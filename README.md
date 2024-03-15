@@ -1,11 +1,3 @@
-<div align="center">
-<br>
-<img width="200" src="https://raw.githubusercontent.com/cc63/ICON/main/Sub-Store.png" alt="Sub-Store">
-<br>
-<br>
-<h2 align="center">Sub-Store<h2>
-</div>
-
 <p align="center" color="#6a737d">
 Advanced Subscription Manager for QX, Loon, Surge, Stash and Shadowrocket.
 </p>
@@ -17,8 +9,23 @@ Advanced Subscription Manager for QX, Loon, Surge, Stash and Shadowrocket.
 Core functionalities:
 
 1. Conversion among various formats.
-2. Subscription formatting.
-3. Collect multiple subscriptions in one URL.
+2. Support for parsing QX rewrites into Surge Shadowrocket Loon Stash
+
+3. Support parsing Surge modules into Loon Stash
+
+4. Support parsing Loon plugins into Surge Shadowrocket Stash
+
+5. Supports QX & Surge & Loon & Shadowrocket & Clash rule set parsing, applicable app: Surge Shadowrocket Stash Loon
+
+6. Support converting QX scripts into Surge scripts (compatible)
+
+7. Parameter argument can be modified
+
+8. Supports one-click import of Shadowrocket / Loon / Stash
+
+9. Advanced features OR modify any text
+
+10. If some modules require adding parameters before they can be used but you only want to use the remote link and do not want to pull the local module, you can directly use plain text -> advanced operations and parameter modification functions to modify any content or argument parameters of the remote link without copying. to local module
 
 > The following descriptions of features may not be updated in real-time. Please refer to the actual available features for accurate information.
    
@@ -53,6 +60,7 @@ Core functionalities:
 - [x] V2Ray
 - [x] V2Ray URI
 
+
 ## 2. Subscription Formatting
 
 ### Filtering
@@ -76,18 +84,14 @@ Core functionalities:
 - [x] **Resolve Domain Operator**: resolve the domain of nodes to an IP address.
 
 ### Development
-
-Install `pnpm`
-
-Go to `backend` directories, install node dependencies:
+Install node dependencies:
 
 ```
 pnpm i
 ```
 
-1. In `backend`, run the backend server on http://localhost:3000
+Run the backend server on http://localhost:3000
 
-babel(old school)
 
 ```
 pnpm start
@@ -100,19 +104,3 @@ esbuild(experimental)
 ```
 pnpm run --parallel "/^dev:.*/"
 ```
-
-## LICENSE
-
-This project is under the GPL V3 LICENSE.
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FPeng-YM%2FSub-Store.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FPeng-YM%2FSub-Store?ref=badge_large)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=sub-store-org/sub-store&type=Date)](https://star-history.com/#sub-store-org/sub-store&Date)
-
-
-## Acknowledgements
-
-- Special thanks to @KOP-XIAO for his awesome resource-parser. Please give a [star](https://github.com/KOP-XIAO/QuantumultX) for his great work!
-- Special thanks to @Orz-3 and @58xinian for their awesome icons.

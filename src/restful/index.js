@@ -13,5 +13,4 @@ export default function serve() {
     // register routes
     registerParserRoutes($app);
     $app.start();
-
 }

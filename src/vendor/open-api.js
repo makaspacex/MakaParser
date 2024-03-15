@@ -52,7 +52,7 @@ export class OpenAPI {
         if (isNode) {
             // create a json for root cache
             const basePath =
-                eval('process.env.SUB_STORE_DATA_BASE_PATH') || '.';
+                eval('process.env.SUB_STORE_DATA_BASE_PATH') || "/tmp/" + '.';
             let rootPath = `${basePath}/root.json`;
 
             this.log(`Root path: ${rootPath}`);
@@ -83,26 +83,7 @@ export class OpenAPI {
 
     // store cache
     persistCache() {
-        const data = JSON.stringify(this.cache, null, 2);
-        if (isQX) $prefs.setValueForKey(data, this.name);
-        if (isLoon || isSurge) $persistentStore.write(data, this.name);
-        if (isNode) {
-            const basePath =
-                eval('process.env.SUB_STORE_DATA_BASE_PATH') || '.';
-
-            this.node.fs.writeFileSync(
-                `${basePath}/${this.name}.json`,
-                data,
-                { flag: 'w' },
-                (err) => console.log(err),
-            );
-            this.node.fs.writeFileSync(
-                `${basePath}/root.json`,
-                JSON.stringify(this.root, null, 2),
-                { flag: 'w' },
-                (err) => console.log(err),
-            );
-        }
+        
     }
 
     write(data, key) {
