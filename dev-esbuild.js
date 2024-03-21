@@ -2,7 +2,7 @@
 const { build } = require('esbuild');
 
 !(async () => {
-    const artifacts = [{ src: 'server.js', dest: 'makaparser.min.js' }];
+    const artifacts = [{ src: 'src/restful/server.js', dest: 'makaparser.min.js' }];
 
     for await (const artifact of artifacts) {
         await build({

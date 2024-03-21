@@ -9,7 +9,7 @@ const { build } = require('esbuild');
     ).version.trim();
 
     const artifacts = [
-        { src: 'server.js', dest: 'makaparser.min.js' },
+        { src: 'src/restful/server.js', dest: 'dist/makaparser.min.js' },
     ];
 
     for await (const artifact of artifacts) {

@@ -1,5 +1,6 @@
 runtime/
-
+lib/
+pnpm-lock.yaml
 .DS_Store
 # json config
 sub-store.json
