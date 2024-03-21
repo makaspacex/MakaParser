@@ -94,7 +94,7 @@ function banner(dest) {
 
 const artifacts = [
     {   src: 'src/restful/server.js', 
-        dest: 'makaparser.min.js' 
+        dest: 'dist/makaparser.min.js' 
     }
 ];
 

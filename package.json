@@ -6,11 +6,11 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "test": "gulp peggy && npx cross-env BABEL_ENV=test mocha src/test/**/*.spec.js --require @babel/register --recursive",
-    "serve": "node makaparser.min.js",
+    "serve": "node dist/makaparser.min.js",
     "prepublish": "babel src -d lib",
     "start": "nodemon -w src -w package.json --exec babel-node src/restful/server.js",
     "dev:esbuild": "nodemon -w src -w package.json dev-esbuild.js",
-    "dev:run": "nodemon -w makaparser.min.js makaparser.min.js",
+    "dev:run": "nodemon -w dist/makaparser.min.js dist/makaparser.min.js",
     "build": "gulp",
     "bundle": "node bundle.js"
   },

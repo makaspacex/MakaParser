@@ -8,7 +8,7 @@ const { build } = require('esbuild');
         fs.readFileSync(path.join(__dirname, 'package.json'), 'utf-8'),
     ).version.trim();
 
-    let content = fs.readFileSync(path.join(__dirname, 'makaparser.min.js'), {
+    let content = fs.readFileSync(path.join(__dirname, 'dist/makaparser.min.js'), {
         encoding: 'utf8',
     });
     content = content.replace(
